@@ -1,2 +1,2 @@
 (defmacro dbg [variable]
-  ~(print (string/format "%p" ',variable) "=" ,variable))
+  ~(print (string/format "%p" ',variable) "=" (string/format "%p" ,variable)))
