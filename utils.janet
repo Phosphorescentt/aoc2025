@@ -17,3 +17,24 @@
   (coro
     (loop [i :range [0 (length iter)]]
       (yield [i (get iter i)]))))
+
+(defn transpose [arr]
+  (def width (length arr))
+  (def height (length (arr 0)))
+
+  (def out
+    (map
+      (fn [_] (array/new-filled width nil))
+      (range 0 height)))
+
+  (each [i row] (enumerate arr)
+    (each [j col] (enumerate row)
+      (set ((out j) i) col)))
+
+  out)
+
+(defn zip [arr1 arr2]
+  (def max-i (max (length arr1) (length arr2)))
+  (coro
+    (loop [i :range [0 max-i]]
+      (yield @[(get arr1 i) (get arr2 i)]))))
